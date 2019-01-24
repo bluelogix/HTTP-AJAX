@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import FriendsList from './components/FriendsList'
-import FriendForm from './components/FriendForm'
-
+import {Route, Link } from 'react-router-dom';
+import FriendsList from './components/FriendsList';
+import FriendForm from './components/FriendForm';
 import './App.css';
+
+
 // import { threadId } from 'worker_threads';
 
 
@@ -42,8 +44,15 @@ class App extends Component {
   }
 
   handleChanges = e => {
-    e.preventDefault(); 
-        this.setState({ [e.target.name]: e.target.value });
+    e.persist();
+        this.setState(prevState => {
+          return {
+            input: {
+              ...prevState.input,
+              [e.target.name]: e.target.value
+            }
+          }
+        })
 };
 
 
@@ -64,12 +73,21 @@ addFriend = () => {
   render() {
     return (
       <div className="App">
-        <FriendForm  
-        addFriend={this.state.addFriend}
+
+        <div className="friendTab">
+          <Link to='/' > Friends</Link>
+          <Link  to='/friend-input' > Add a Friend</Link>
+          </div>
+
+      <Route path="/friend-input" render={props =>  <FriendForm  
+        {...props}
+        addFriend={this.addFriend}
         input={this.state.input}
         handleChanges={this.handleChanges}
-        />
-        <FriendsList friendsList={this.state.friendsList} />
+      /> } />
+       
+        <Route exact path='/' render={props => <FriendsList {...props}friendsList={this.state.friendsList} /> } />
+        
       
       </div> // end div
     );

@@ -5,12 +5,12 @@ function FriendForm(props) {
   return (
       <div className="form">
 
-        <form autoComplete="off" onSubmit={props.addFriend}>
+        <form autoComplete="off" >
 
-            <h1>Friend List</h1>
+            
 
                 <input className="name"
-                    value={props.name}
+                    value={props.input.name}
                     type="text"
                     name="name"
                     placeholder="Name"
@@ -18,14 +18,14 @@ function FriendForm(props) {
                 />
 
                 <input
-                    value={props.age}
+                    value={props.input.age}
                     type="text"
                     name="age"
                     placeholder="Age"
                     onChange={props.handleChanges}
                 />
                 <input
-                    value={props.email}
+                    value={props.input.email}
                     type="email"
                     name="email"
                     placeholder="email"
@@ -33,7 +33,7 @@ function FriendForm(props) {
                 />
         
         <div>
-        <button type="submit">Add Friend</button>
+        <button onClick={props.addFriend} type="submit">Add Friend</button>
         </div>
 
         </form>
