@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import FriendsList from './components/FriendsList'
 
 import './App.css';
 // import { setupMaster } from 'cluster    ';
@@ -9,7 +10,7 @@ class App extends Component {
     super();
     this.state = {
       friendsList: [],
-      error: ''
+      // error: ''
     }
   }
 
@@ -19,9 +20,9 @@ class App extends Component {
     .then(res => {
         this.setState({ friendsList: res.data})
     })
-    .catch(err => {
-      this.setState({ error: err})
-    })
+    .catch(err => console.log(err))
+    
+   
   }
 
 
@@ -29,16 +30,10 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        {this.state.friendsList.map( friend => {
-          return(
-            <div>
-             <h1>{friend.name}</h1>
-              <p>{friend.age}</p>
-              <p>{friend.email}</p>
-            </div>
-          )
-        })}
-      </div>
+
+        <FriendsList friendsList={this.state.friendsList} />
+      
+      </div> // end div
     );
   }
 }
