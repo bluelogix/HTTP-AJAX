@@ -27,6 +27,7 @@
    width: 30%;
     margin: 20px 0;
     padding: 0 40px;
+    background-color: rgb(240, 225, 206);
    
 }
 
@@ -39,9 +40,12 @@
     margin: 80px 80px;
     
 }
- /* .card i {
-     text-align: right;
- } */
+.fas {
+    font-size: 20px;
+
+}
+
+
 
 /* input form */
 .form input{

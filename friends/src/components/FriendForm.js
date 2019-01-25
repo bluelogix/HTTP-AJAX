@@ -1,11 +1,19 @@
 import React from 'react';
 
 function FriendForm(props) {
- 
+    function handleSubmit(e) {
+        e.preventDefault();
+        if (props.isUpdating) {
+            props.updateFriend();
+        } else {
+            props.addFriend();
+        }
+    }
   return (
       <div className="form">
-
-        <form autoComplete="off" >
+    
+    {/* <h2>{props.isUpdating ? 'Update Item' : 'Add New Friend'}</h2> */}
+        <form autoComplete="off"  onSubmit={handleSubmit}>
 
             
 
@@ -33,7 +41,7 @@ function FriendForm(props) {
                 />
         
         <div>
-        <button onClick={props.addFriend} type="submit">Add Friend</button>
+        <button  type="submit">{props.isUpdating ? 'Update item' : 'Add new Item'}</button>
         </div>
 
         </form>
@@ -44,4 +52,4 @@ function FriendForm(props) {
 
 export default FriendForm;
 
-
+// onClick={props.addFriend}

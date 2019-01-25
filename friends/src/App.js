@@ -28,6 +28,7 @@ class App extends Component {
         name: '',
         age: '',
         email: '',
+        isUpdating: false
       }
     }
   }
@@ -62,7 +63,7 @@ addFriend = () => {
   axios.post('http://localhost:5000/friends' , this.state.input)
   .then(res => {
     this.setState({ friendsList: res.data });
-    this.props.history.push('/')
+    // this.props.history.push('/')
   })
   .catch(err => console.log(err));
 }
@@ -79,6 +80,40 @@ deleteFriend = (e, id) => {
 }
 
 
+populateForm = (e, id) => {
+  e.preventDefault();
+  this.setState({
+    input: this.state.friendsList.find(update => update.id === id),
+    isUpdating: true
+  });
+  // this.props.history.push('/');
+};
+
+
+updateFriend = () => {
+  axios.put(`http://localhost:5000/friends/${this.state.input.id}`, this.state.input)
+  .then(res => {
+    this.setState({
+      friendsList: res.data,
+      isUpdating: false,
+      input: {
+        name: '',
+        age: '',
+        email: ''
+      }
+    });
+    this.props.history.push('/')
+  }) .catch(err => {
+        console.log(err);
+  })
+}
+
+
+// updateFriend = (e, ids) => {
+//   e.preventDefault();
+//   this.setState({input: this.state.friendsList.find(update => update.id === ids)})
+// }
+
 
   render() {
     return (
@@ -86,7 +121,7 @@ deleteFriend = (e, id) => {
 
         <div className="friendTab">
           <Link to='/' > Friends</Link>
-          <Link  to='/friend-input' > Add a Friend</Link>
+          <Link  to='/friend-input' > {this.state.isUpdating ? 'Update' : 'Add'} a Friend</Link>
           </div>
 
       <Route path="/friend-input" render={props =>  <FriendForm  
@@ -94,10 +129,14 @@ deleteFriend = (e, id) => {
         addFriend={this.addFriend}
         input={this.state.input}
         handleChanges={this.handleChanges}
+        isUpdating={this.isUpdating}
+        updateFriend={this.updateFriend}
+       
       /> } />
        
         <Route exact path='/' render={props => <FriendsList {...props}friendsList={this.state.friendsList} 
         deleteFriend={this.deleteFriend}
+        populateForm={this.populateForm}
         /> } />
         
       
