@@ -5,8 +5,8 @@ import './Friends.css'
 function FriendsList(props) {
     return(
         <div className="something">
-             {props.friendsList.map( (friend , index) => {
-                 return <Friends key={index} friend={friend} />
+             {props.friendsList.map(friend  => {
+                 return <Friends key={friend.id} friend={friend} deleteFriend={props.deleteFriend} />
              })}
         </div> //end div
     )

@@ -28,7 +28,7 @@ function FriendForm(props) {
                     value={props.input.email}
                     type="email"
                     name="email"
-                    placeholder="email"
+                    placeholder="Email"
                     onChange={props.handleChanges}
                 />
         

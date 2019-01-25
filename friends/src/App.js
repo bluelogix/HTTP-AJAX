@@ -67,6 +67,16 @@ addFriend = () => {
   .catch(err => console.log(err));
 }
 
+deleteFriend = (e, id) => {
+  e.preventDefault();
+    axios.delete(`http://localhost:5000/friends/${id}`)
+    .then(res => {
+      this.setState({ friendsList: res.data });
+      // this.props.history.push('/')
+    })
+    .catch(err => { console.log(err);
+  })
+}
 
 
 
@@ -86,7 +96,9 @@ addFriend = () => {
         handleChanges={this.handleChanges}
       /> } />
        
-        <Route exact path='/' render={props => <FriendsList {...props}friendsList={this.state.friendsList} /> } />
+        <Route exact path='/' render={props => <FriendsList {...props}friendsList={this.state.friendsList} 
+        deleteFriend={this.deleteFriend}
+        /> } />
         
       
       </div> // end div
